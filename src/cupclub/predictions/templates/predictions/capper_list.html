@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if not user.subscriber %}
+You're not a subscriber.
+{% else %}
+<div class="d-flex flex-column justify-content-center">
+    <h1 class="text-center">Cappers</h1>
+    <hr />
+
+    {% for capper in object_list %}
+    <div class="text-center">
+        <h3>{{ capper.user.username }}</h3>
+        <p>{{ capper.bio|linebreaks }}</p>
+
+
+        {% if capper.id not in subscribed_capper_ids %}
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="capper" value="{{ capper.id }}">
+            <input type="hidden" name="subscriber" value="{{ user.subscriber.id }}">
+
+            <div class="d-block btn-group mb-3" role="group" aria-label="Basic checkbox toggle button group">
+                <input type="checkbox" class="btn-check" id="btncheck1" name="discord" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btncheck1">
+                    <i class="fa-brands fa-discord"></i>
+                    Discord
+                </label>
+
+                <input type="checkbox" class="btn-check" id="btncheck2" name="email" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btncheck2">
+                    <i class="fa-sharp fa-solid fa-envelope"></i>
+                    Email
+                </label>
+
+                <input type="checkbox" class="btn-check" id="btncheck3" name="telegram" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btncheck3">
+                    <i class="fa-brands fa-telegram"></i>
+                    Telegram
+                </label>
+            </div>
+
+            <button class="btn btn-success" type="submit">Subscribe</button>
+        </form>
+        {% else %}
+        <!-- Not Implemented -->
+        <button class="btn btn-danger" type="submit">Unsubscribe</button>
+        {% endif %}
+    </div>
+    <hr />
+    {% endfor %}
+</div>
+
+{% endif %}
+{% endblock %}

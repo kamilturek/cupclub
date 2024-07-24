@@ -1,0 +1,49 @@
+---
+x-default-app:
+  &default-app
+    working_dir: /code/src
+    build:
+      dockerfile: ./Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - .:/code
+
+services:
+  app:
+    <<: *default-app
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+      - rabbitmq
+    command: python manage.py runserver 0.0.0.0:8000
+
+  celery:
+    <<: *default-app
+    command: celery -A cupclub.config.celery worker -l INFO
+    depends_on:
+      - rabbitmq
+
+  db:
+    image: postgres:16-alpine
+    volumes:
+      - data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+volumes:
+  data:

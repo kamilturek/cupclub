@@ -1,0 +1,13 @@
+[project]
+name = "cupclub"
+authors = [{ name = "Kamil Turek", email = "kamil.turek@hotmail.com" }]
+version = "0.1.0"
+dependencies = [
+    "Django==5.0.7",
+    "psycopg[binary]==3.2.1",
+    "celery==5.4.0",
+    "django-ses==4.1.0",
+]
+
+[project.optional-dependencies]
+dev = ["ruff"]
