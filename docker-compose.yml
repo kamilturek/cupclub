@@ -8,22 +8,20 @@ x-default-app:
       - .env
     volumes:
       - .:/code
+    depends_on:
+      - db
+      - rabbitmq
 
 services:
   app:
     <<: *default-app
     ports:
       - 8000:8000
-    depends_on:
-      - db
-      - rabbitmq
     command: python manage.py runserver 0.0.0.0:8000
 
   celery:
     <<: *default-app
     command: celery -A cupclub.config.celery worker -l INFO
-    depends_on:
-      - rabbitmq
 
   db:
     image: postgres:16-alpine
