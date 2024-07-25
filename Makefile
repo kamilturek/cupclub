@@ -1,4 +1,4 @@
-.PHONY: req sync
+.PHONY: req makemigrations migrate
 
 req:
 	uv pip compile pyproject.toml -o requirements/base.txt > /dev/null
