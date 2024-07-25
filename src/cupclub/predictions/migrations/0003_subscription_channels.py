@@ -6,16 +6,21 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('predictions', '0002_initial'),
+        ("predictions", "0002_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='subscription',
-            name='channels',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(choices=cupclub.predictions.enums.Channel.choices, max_length=16), default=['email'], size=None),
+            model_name="subscription",
+            name="channels",
+            field=django.contrib.postgres.fields.ArrayField(
+                base_field=models.CharField(
+                    choices=cupclub.predictions.enums.Channel.choices, max_length=16
+                ),
+                default=["email"],
+                size=None,
+            ),
             preserve_default=False,
         ),
     ]

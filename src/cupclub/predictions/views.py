@@ -23,7 +23,7 @@ class CapperListView(ListView):
     # Really bad practice to mix a generic list view with another POST handler.
     # Done as a shortcut for MVP only and due to time constraints :)
     def post(self, request: HttpRequest, *args: Any, **kwrags: Any) -> HttpResponse:
-        # Missing validation if the user is creating a susbcription for themselves.
+        # Missing validation if the user is creating a subscription for themselves.
         data = request.POST.copy()
         data["channels"] = []
 
@@ -55,8 +55,10 @@ class SubscriberListView(ListView):
     model = Subscriber
 
     def get_queryset(self) -> QuerySet[Any]:
-        return super().get_queryset().filter(
-            subscriptions__capper_id=self.request.user.capper.id
+        return (
+            super()
+            .get_queryset()
+            .filter(subscriptions__capper_id=self.request.user.capper.id)
         )
 
     def post(self, request: HttpRequest, *args: Any, **kwrags: Any) -> HttpResponse:

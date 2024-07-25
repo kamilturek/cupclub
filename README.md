@@ -45,7 +45,10 @@
     docker compose up
     ```
 
+1. Apply migrations, create sample data, etc. (out of scope).
+
 1. Access the application at [`localhost:8000`](http://localhost:8000).
+
 
 
 ## Trade-Offs
@@ -62,8 +65,8 @@ are good enough for quick prototypes. This, together with time constraints, led 
 which affect maintainability, and general code quality.
 - **Code Quality Tools**: Proper linting and static analysis tools were not implemented, which are crucial for maintaining code quality and consistency.
 - **Local Setup**: The current application setup is suitable only for running in local environment. Adjustments are required to make the app deployable to cloud servers, such as configuring environment variables, setting up cloud-specific infrastructure, and ensuring proper security measures.
-- **Continuous Integration**: The current setup does not include a continuous integration (CI) system. 
-- **Logging**: The initial build lacks any logging. 
+- **Continuous Integration**: The current setup does not include a continuous integration (CI) system.
+- **Logging**: The initial build lacks any logging.
 
 
 ## Screenshots
